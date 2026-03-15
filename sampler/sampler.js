@@ -39,3 +39,5 @@ async function sampleData() {
   }
   throw new Error('All sensors failed');
 }
+
+module.exports = { isValidReading };
