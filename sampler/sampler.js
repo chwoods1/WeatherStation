@@ -9,7 +9,7 @@ const app = express();
 const sensors = JSON.parse(readFileSync('sensors.json'));
 
 
-async function sample_sensor(sensor) {
+async function sampleSensor(sensor) {
   const reading = await fetch(`http://${sensor.name}:5000/read`);
   return reading.json();
 }
