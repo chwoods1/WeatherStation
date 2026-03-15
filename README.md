@@ -1,7 +1,15 @@
 Sampler README
 
 
-### POST /sample
+### GET /sensor/read.json
+**Parameters**
+
+|          Name | Required |  Type   | Description                                                                                                                                                           |
+| -------------:|:--------:|:-------:| --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|     `timestamp` | required | datetime  | The timestamp when value was got. <br/><br/> Supported values: `time`.                                                                     |
+|        `voltage` | required | double  | The value of voltage ouputed by sensor. <br/><br/> Supported values : `voltage`, 
+
+### POST /sampler/sampleData.json
 **Parameters**
 
 |          Name | Required |  Type   | Description                                                                                                                                                           |
