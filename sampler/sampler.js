@@ -53,5 +53,6 @@ app.get('/sample', async (req, res) => {
   }
 });
 
+app.listen(3000, () => console.log('Sampler listening on port 3000'));
 
 module.exports = { isValidReading };
