@@ -1,12 +1,13 @@
-name: Run Sensor Simulation
+name: Weather Station CI/CD
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
+    branches: [main]
 
 jobs:
-  run-sensor:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -17,5 +18,27 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Run Sensor simulation
-        run: timeout 10 python sensor.py || true
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    environment: production
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Connect to Tailscale
+        uses: tailscale/github-action@v2
+        with:
+          authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
+
+      - name: Deploy to server
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd ~/weather-station
+            git pull origin main
+            docker compose up -d --build
