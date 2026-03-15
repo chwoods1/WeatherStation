@@ -28,7 +28,7 @@ services:
   sampler:
     build: ./sampler
     ports: ["3000:3000"]
-    depends_on: [sensor-primary, sensor-spare-1, sensor-spare-2]
+    depends_on: [sensor-1, sensor-2, sensor-3]
 
 networks:
   sensor-net:
