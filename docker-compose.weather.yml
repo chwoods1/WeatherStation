@@ -1,0 +1,35 @@
+services:
+  sensor-1:
+    build:
+      context: /home/chase/weather-station/sensor
+    environment:
+      - FAULT_RATE=0.0
+    ports: ["5001:5000"]
+    networks:
+      - sensor-net
+
+  sensor-2:
+    build:
+      context: /home/chase/weather-station/sensor
+    environment:
+      - FAULT_RATE=0.3
+    ports: ["5002:5000"]
+    networks:
+      - sensor-net
+
+  sensor-3:
+    build:
+      context: /home/chase/weather-station/sensor
+    environment:
+      - FAULT_RATE=0.5
+    ports: ["5003:5000"]
+    networks:
+      - sensor-net
+  sampler:
+    build: ./sampler
+    ports: ["3000:3000"]
+    depends_on: [sensor-primary, sensor-spare-1, sensor-spare-2]
+
+networks:
+  sensor-net:
+    name: sensor-net
