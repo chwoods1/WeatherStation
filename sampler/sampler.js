@@ -42,4 +42,16 @@ async function sampleData() {
   throw new Error('All sensors failed');
 }
 
+app.use(express.json());
+
+app.get('/sample', async (req, res) => {
+  try {
+    const reading = await sampleData();
+    res.json(reading);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
 module.exports = { isValidReading };
