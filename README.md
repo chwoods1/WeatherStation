@@ -1,30 +1,25 @@
-Sampler README
+# Weather Station
 
-Our sampler will take the data from our sensor and make sure that it is formated in the correct way. It will look at the data being recived from the
-sensor and check to see if it is JSON formatted and see if it is taking the voltage and the timestamp. Then it will transfer the data onto the transformer. 
-For our two QA's, we are doing a hot spare for avalability, we are doing this so that not data will get lost and if something were to happen to the sensor then we would be
-able to go the backup imentently. And for intrabillity we are using a wrapper, this will help all of the data trasnfer smoothly and so that it will be able to be 
-processed with minimal to no errors. 
-For running tests we are giving the sampler formated files and chekcing to see if it returns them in the same format and the data is correct. We are also testing by
-turring off one of our sensors to see if our hot spare will work and we can run smoothly. 
+# Sampler
 
+Our sampler takes the data from our sensors and make sure that it is formated in the correct way. It will look at the data being recived from the
+sensor and check to see if it is JSON formatted and see if it is taking the voltage and the timestamp. Then it will send our data to the transformer.
 
-Request Format (JSON)
-{
-  "timestamp": "1741234567.123",
-  "voltage": 2.73
-}
-```
+### GET /sensor/read.json
+**Parameters**
 
-Once the data is validated, the data will be sent to the transformer in this format
+|          Name | Required |  Type   | Description                                                                                                                                                           |
+| -------------:|:--------:|:-------:| --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|     `timestamp` | required | datetime  | The timestamp when value was got. <br/><br/> Supported values: `time`.                                                                     |
+|        `voltage` | required | double  | The value of voltage ouputed by sensor. <br/><br/> Supported values : `voltage`, 
 
-```json
-{
-  "sampled_timestamp": "1741234567.123",
-  "sampled_voltage": 2.73
-}
+### POST /sampler/sampleData.json
+**Parameters**
 
-```
+|          Name | Required |  Type   | Description                                                                                                                                                           |
+| -------------:|:--------:|:-------:| --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|     `timestamp` | required | datetime  | The timestamp when value was got. <br/><br/> Supported values: `time`.                                                                     |
+|        `voltage` | required | double  | The value of voltage ouputed by sensor. <br/><br/> Supported values : `voltage`, 
 
 --- 
 
