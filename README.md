@@ -1,5 +1,7 @@
 Sampler README
 
+
+### POST /sample
 **Parameters**
 
 |          Name | Required |  Type   | Description                                                                                                                                                           |
