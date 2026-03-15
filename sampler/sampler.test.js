@@ -1,8 +1,19 @@
-const { isValid } = require('./sampler');
+const test = require('node:test');
 
-const validReading = { voltage: 2.5123, timestamp: 1234567890 };
+const validReading = { voltage: 2.5, timestamp: 1741234567.123 };
+const badVoltage = { voltage: 99, timestamp: 1741234567.123 };
+const badTimestamp = { voltage: 2.5, timestamp: 12345 };
+const missingVoltage = { timestamp: 1741234567.123 };
 
-test('returns ok status for valid reading', () => {
-  const result = processSample(validReading);
-  expect(result.status).toBe('ok');
-});
+
+test('accepts valid reading', () =>
+    expect(isValidReading(validReading)).toBe(true));
+
+test('returns false for invalid voltage', () =>
+    expect(isValidReading(badVoltage)).toBe(false));
+
+test('returns false for bad timestamp', () =>
+    expect(isValidReading(badTimestamp)).toBe(false));
+
+test('returns false for missing voltage', () =>
+    expect(isValidReading(missingVoltage)).toBe(false));

@@ -1,17 +1,41 @@
+const { read } = require('fs');
 let http = require('http');
-http.createServer(function (req, res) {
-  res.writeHead(200, {'Content-Type': 'text/html'});
-  res.end('Hello World!');
-}).listen(8080);
+const { type } = require('os');
 
 
-async function sample_data() {
-  const sensordata = await fetch("chase-sensor-1/read");
-  print(sensordata);
+const express = require('express');
+const app = express();
+
+const sensors = JSON.parse(readFileSync('sensors.json'));
+
+
+async function sample_sensor(sensor) {
+  const reading = await fetch(`http://${sensor.name}:5000/read`);
+  return reading.json();
 }
 
-function processSample(rawSample) {
-  return {
-    status: "ok",
+// Contains logic to determine if a reading is valid
+function isValidReading(reading) {
+  // Check if voltage is within expected range and is a number
+  if (typeof reading.voltage !== 'number' || reading.voltage < 0 || reading.voltage > 5) {
+    return false;
   }
+
+  // Check that timestamp uses the correct format and is a number of length 10
+  if (!isFloat(reading.timestamp)) return false;
+  if (reading.timestamp.split('.')[0].length !== 10) return false;
+  return true;
+}
+
+async function sampleData() {
+  for (const sensor of sensors) {
+    const reading = await sampleSensor(sensor);
+    if (isValidReading(reading)) {
+      return reading;
+    } else {
+      console.warn(`Invalid reading from ${sensor.name}, restarting...`);
+      // restartSensor(sensor);
+    }
+  }
+  throw new Error('All sensors failed');
 }
