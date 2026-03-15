@@ -47,4 +47,5 @@ jobs:
           script: |
             cd ~/weather-station
             git pull origin main
+            docker compose -f docker-compose.weather.yml down
             docker compose -f docker-compose.weather.yml up -d --build
