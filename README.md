@@ -28,3 +28,18 @@ For integrating our Hot Spare for our availibity QA, we decided to run multiple 
 # Testing
 
 To test our sampler, we use sampler.test.js to run different readings to make sure the system is returning false or true on the reading validation.
+
+We test for bad voltage, bad timestamps, as well as if there is any missing data
+Example:
+
+```js
+const badVoltage = { voltage: 99, timestamp: 1741234567.123 };
+test('returns false for invalid voltage', () =>
+    expect(isValidReading(badVoltage)).toBe(false));
+```
+
+We run these tests for all values to make sure our code is working correctly before deploying to the server.
+
+# Deployment
+
+We are using a server provided by one of our groupmates to deploy the server, this allows for testing using a real docker environment. For each service we are designing, we are making sure to implement a Dockerfile and a running Docker Compose file to allow for simple deployment. Using Docker networks allow us to have the sampler communicate with each sensor without having multiple ports exposed. 
