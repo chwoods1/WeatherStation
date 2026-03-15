@@ -1,5 +1,5 @@
 [
-  { "name": "chase-sensor-1-1" },
-  { "name": "chase-sensor-2-1" },
-  { "name": "chase-sensor-3-1" }
+  { "name": "weather-station-sensor-1-1" },
+  { "name": "weather-station-sensor-2-1" },
+  { "name": "weather-station-sensor-3-1" }
 ]
