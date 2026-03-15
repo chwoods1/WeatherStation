@@ -1,4 +1,4 @@
-const { read } = require('fs');
+const { readFileSync } = require('fs');
 let http = require('http');
 const { type } = require('os');
 
@@ -6,7 +6,7 @@ const { type } = require('os');
 const express = require('express');
 const app = express();
 
-const sensors = JSON.parse(read('sensors.json'));
+const sensors = JSON.parse(readFileSync('sensors.json'));
 
 
 async function sample_sensor(sensor) {
@@ -17,13 +17,15 @@ async function sample_sensor(sensor) {
 // Contains logic to determine if a reading is valid
 function isValidReading(reading) {
   // Check if voltage is within expected range and is a number
+
   if (typeof reading.voltage !== 'number' || reading.voltage < 0 || reading.voltage > 5) {
     return false;
   }
 
   // Check that timestamp uses the correct format and is a number of length 10
-  if (!isFloat(reading.timestamp)) return false;
-  if (reading.timestamp.split('.')[0].length !== 10) return false;
+  if (typeof reading.timestamp !== 'number' || !Number.isFinite(reading.timestamp)) return false;
+  if (Math.floor(reading.timestamp).toString().length !== 10) return false;
+  
   return true;
 }
 
