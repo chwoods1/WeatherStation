@@ -17,6 +17,12 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      
+      - name: Install sampler dependencies
+        run: npm install --prefix sampler
+      
+      - name: Run sampler tests
+        run: npm test --prefix sampler
 
   deploy:
     needs: test

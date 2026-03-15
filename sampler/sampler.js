@@ -6,6 +6,12 @@ http.createServer(function (req, res) {
 
 
 async function sample_data() {
-    const sensordata = await fetch("chase-sensor-1/read");
-    print(sensordata);
+  const sensordata = await fetch("chase-sensor-1/read");
+  print(sensordata);
+}
+
+function processSample(rawSample) {
+  return {
+    status: "ok",
+  }
 }
