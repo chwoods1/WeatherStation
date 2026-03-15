@@ -1,4 +1,3 @@
-const test = require('node:test');
 const { isValidReading } = require('./sampler');
 
 const validReading = { voltage: 2.5, timestamp: 1741234567.123 };
