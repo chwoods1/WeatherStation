@@ -6,7 +6,7 @@ const { type } = require('os');
 const express = require('express');
 const app = express();
 
-const sensors = JSON.parse(readFileSync('sensors.json'));
+const sensors = JSON.parse(read('sensors.json'));
 
 
 async function sample_sensor(sensor) {
