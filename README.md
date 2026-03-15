@@ -5,7 +5,7 @@
 Our sampler takes the data from our sensors and make sure that it is formated in the correct way. It will look at the data being recived from the
 sensor and check to see if it is JSON formatted and see if it is taking the voltage and the timestamp. Then it will send our data to the transformer.
 
-### GET /sensor/read.json
+### GET /sensor/read
 **Parameters**
 
 |          Name | Required |  Type   | Description                                                                                                                                                           |
@@ -13,7 +13,7 @@ sensor and check to see if it is JSON formatted and see if it is taking the volt
 |     `timestamp` | required | datetime  | The timestamp when value was got. <br/><br/> Supported values: `time`.                                                                     |
 |        `voltage` | required | double  | The value of voltage ouputed by sensor. <br/><br/> Supported values : `voltage`, 
 
-### POST /sampler/sampleData.json
+### POST /sample
 **Parameters**
 
 |          Name | Required |  Type   | Description                                                                                                                                                           |
