@@ -1,7 +1,7 @@
 const { readFileSync } = require('fs');
 const https = require('https');
 const { type } = require('os');
-
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 const express = require('express');
 const app = express();
