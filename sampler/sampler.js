@@ -10,7 +10,7 @@ const sensors = JSON.parse(readFileSync('sensors.json'));
 
 
 async function sampleSensor(sensor) {
-  const reading = await fetch(`http://${sensor.name}:5000/read`);
+  const reading = await fetch(`https://${sensor.name}:5000/read`);
   return reading.json();
 }
 
