@@ -1,5 +1,5 @@
 const { readFileSync } = require('fs');
-let http = require('http');
+const https = require('https');
 const { type } = require('os');
 
 
@@ -54,6 +54,12 @@ app.get('/sample', async (req, res) => {
 });
 
 if (require.main === module) {
-  app.listen(3000, () => console.log('Sampler listening on port 3000'));
+  const options = {
+    key: readFileSync('key.pem'),
+    cert: readFileSync('cert.pem')
+  };
+  https.createServer(options, app).listen(3000, () => {
+    console.log('Sampler running on port 3000');
+  });
 }
 module.exports = { isValidReading };
