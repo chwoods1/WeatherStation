@@ -1,11 +1,13 @@
 const { isValidReading } = require('./sampler');
 
+
+// Set up our valid/invalid readings
 const validReading = { voltage: 2.5, timestamp: 1741234567.123 };
 const badVoltage = { voltage: 99, timestamp: 1741234567.123 };
 const badTimestamp = { voltage: 2.5, timestamp: 12345 };
 const missingVoltage = { timestamp: 1741234567.123 };
 
-
+// Perform tests with our readings using isValidReading
 test('accepts valid reading', () =>
     expect(isValidReading(validReading)).toBe(true));
 

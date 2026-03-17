@@ -1,27 +1,21 @@
 services:
   sensor-1:
     build:
-      context: /home/chase/weather-station/sensor
-    environment:
-      - FAULT_RATE=0.0
+      context: ./sensor
     ports: ["5001:5000"]
     networks:
       - sensor-net
 
   sensor-2:
     build:
-      context: /home/chase/weather-station/sensor
-    environment:
-      - FAULT_RATE=0.3
+      context: ./sensor
     ports: ["5002:5000"]
     networks:
       - sensor-net
 
   sensor-3:
     build:
-      context: /home/chase/weather-station/sensor
-    environment:
-      - FAULT_RATE=0.5
+      context: ./sensor
     ports: ["5003:5000"]
     networks:
       - sensor-net
