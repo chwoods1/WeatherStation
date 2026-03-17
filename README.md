@@ -5,21 +5,23 @@
 Our sampler takes the data from our sensors and make sure that it is formatted in the correct way. It will look at the data being received from the
 sensor and check to see if it is JSON formatted and see if it is taking the voltage and the timestamp. Then it will send our data to the transformer.
 
-### GET /sensor/read
+### GET /read
+Endpoint located from each sensor
 **Parameters**
 
 |          Name | Required |  Type   | Description                                                                                                                                                           |
 | -------------:|:--------:|:-------:| --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|     `timestamp` | required | datetime  | The timestamp when value was got. <br/><br/> Supported values: `time`.                                                                     |
-|        `voltage` | required | double  | The value of voltage ouputed by sensor. <br/><br/> Supported values : `voltage`, 
+|     `timestamp` | required | Unix Timestamp  | The timestamp when value was read.                                                                     |
+|        `voltage` | required | double  | The value of voltage ouputed by sensor.
 
-### POST /sample
+### GET /sample
+Endpoint located on the sampler service
 **Parameters**
 
 |          Name | Required |  Type   | Description                                                                                                                                                           |
 | -------------:|:--------:|:-------:| --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|     `timestamp` | required | datetime  | The timestamp when value was got. <br/><br/> Supported values: `time`.                                                                     |
-|        `voltage` | required | double  | The value of voltage ouputed by sensor. <br/><br/> Supported values : `voltage`, 
+|     `timestamp` | required | Unix Timestamp  | The timestamp when value was got.                                                                  |
+|        `voltage` | required | double  | The value of voltage ouputed by sensor.
 
 --- 
 
