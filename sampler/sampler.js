@@ -47,6 +47,7 @@ async function sampleData() {
   for (const sensor of sensors) {
     const reading = await sampleSensor(sensor);
     if (isValidReading(reading)) {
+      postToTransform(reading);
       return reading;
     } else {
       console.warn(`Invalid reading from ${sensor.name}, restarting...`);
@@ -55,6 +56,18 @@ async function sampleData() {
   }
   throw new Error("All sensors failed");
 }
+
+async function postToTransform(reading) {
+  const response = await fetch('https://weather-station-transformer-1:4000' , {
+  method: 'POST',
+  headers: {
+     
+  },
+  body: JSON.stringify(reading)
+});
+
+}
+
 
 // /sample endpoint which runs sampleData and returns the data sampled
 app.get("/sample", async (req, res) => {
