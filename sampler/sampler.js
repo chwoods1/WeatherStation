@@ -57,6 +57,7 @@ async function sampleData() {
   throw new Error("All sensors failed");
 }
 
+//Fuction to post voltage and timestamp the the transformer
 async function postToTransform(reading) {
   const response = await fetch('https://weather-station-transformer-1:4000' , {
   method: 'POST',
