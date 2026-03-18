@@ -25,6 +25,13 @@ services:
     depends_on: [sensor-1, sensor-2, sensor-3]
     networks:
       - sensor-net
+  transformer:
+    build:
+      context: ./transformer
+    ports: ["4000"]
+    networks:
+      - sensor-net
+    depends_on: [sampler]
 
 networks:
   sensor-net:
