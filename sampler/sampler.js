@@ -62,10 +62,13 @@ async function postToTransform(reading) {
   const response = await fetch('https://weather-station-transformer-1:4000/transform' , {
   method: 'POST',
   headers: {
-     
+     'Content-Type': 'application/json'
   },
   body: JSON.stringify(reading)
 });
+  const data = await response.json();
+  console.log('Transformed data:', data);
+  return data;
 
 }
 

@@ -7,10 +7,12 @@ app = Flask(__name__)
 @app.route('/transform', methods=['POST'])
 def transform():
     #gets the voltage and timestamp from POST
-    if request.method == 'POST':
-        data = request.get_json()
-        voltage = data.get('voltage')
-        timestamp = data.get('timestamp')
+    data = request.get_json()
+    if data is None:
+        return jsonify({'error': 'Invalid JSON data'}), 400
+
+    voltage = data.get('voltage')
+    timestamp = data.get('timestamp')
 
     # Check if voltage is provided
     if voltage is None:
