@@ -21,3 +21,9 @@ def transform_data(voltage):
     temperature = (voltage - 0.5) * 100
     print(f"Temperature: {round(temperature, 2)} °C")
     return round(temperature, 2)
+
+# Starts our flask service on the localhost using port 5000, also uses self signed
+# cert and key which allows for the use of https
+if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 4000))
+    app.run(host='0.0.0.0', port=port, ssl_context=('cert.pem', 'key.pem'))
