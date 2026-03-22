@@ -18,7 +18,7 @@ def transform():
 
 def transform_data(voltage):
     # Converts the voltage to a temperature
-    temperature = (voltage - 0.5) * 100
+    temperature = (voltage - 0.5) * 20
     print(f"Temperature: {round(temperature, 2)} °C")
     return round(temperature, 2)
 
