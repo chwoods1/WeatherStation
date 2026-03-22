@@ -1,6 +1,8 @@
 import os, time, math
 from flask import Flask, jsonify, request
-from app import app
+
+# Set up our flask service
+app = Flask(__name__)
 
 @app.route('/transform', methods=['POST'])
 def transform():
