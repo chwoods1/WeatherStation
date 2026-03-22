@@ -59,7 +59,7 @@ async function sampleData() {
 
 //Fuction to post voltage and timestamp the the transformer
 async function postToTransform(reading) {
-  const response = await fetch('https://weather-station-transformer-1:4000' , {
+  const response = await fetch('https://weather-station-transformer-1:4000/transform' , {
   method: 'POST',
   headers: {
      

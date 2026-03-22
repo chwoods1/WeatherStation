@@ -8,9 +8,10 @@ app = Flask(__name__)
 def transform():
     #gets the voltage and timestamp from POST
     if request.method == 'POST':
-        voltage = request.form.get('voltage')
-        timestamp = request.form.get('timestamp')
-        
+        data = request.get_json()
+        voltage = data.get('voltage')
+        timestamp = data.get('timestamp')
+
     # Check if voltage is provided
     if voltage is None:
         return jsonify({'error': 'Voltage value is required'}), 400
@@ -20,6 +21,7 @@ def transform():
 
 def transform_data(voltage):
     # Converts the voltage to a temperature
+    voltage = float(voltage)
     temperature = (voltage - 0.5) * 20
     print(f"Temperature: {round(temperature, 2)} °C")
     return round(temperature, 2)
