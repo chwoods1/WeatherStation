@@ -1,4 +1,4 @@
-import os, time, math, requests 
+import os, time, math
 from flask import Flask, jsonify, request
 from app import app
 
