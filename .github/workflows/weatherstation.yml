@@ -17,6 +17,11 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - name: Install transformer dependencies
+        run: pip install -r transformer/requirements.txt
+
+      - name: Run transformer tests
+        run: pytest transformer/transformer.test.py -v
       
       - name: Install sampler dependencies
         run: npm install --prefix sampler

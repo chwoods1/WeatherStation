@@ -25,7 +25,7 @@ def transform_data(voltage):
     # Converts the voltage to a temperature
     voltage = float(voltage)
     temperature = (voltage - 0.5) * 20
-    print(f"Temperature: {round(temperature, 2)} °C")
+    print(f"Temperature: {round(temperature, 2)} °C", flush=True)
     return round(temperature, 2)
 
 # Starts our flask service on the localhost using port 5000, also uses self signed
