@@ -1,3 +1,4 @@
+name: weather-station
 services:
   sensor-1:
     build:
@@ -28,7 +29,7 @@ services:
   transformer:
     build:
       context: ./transformer
-    ports: ["4000"]
+    ports: ["4000:4000"]
     networks:
       - sensor-net
     depends_on: [sampler]
