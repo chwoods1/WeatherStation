@@ -17,6 +17,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      
       - name: Install transformer dependencies
         run: pip install -r transformer/requirements.txt
 
@@ -29,8 +30,34 @@ jobs:
       - name: Run sampler tests
         run: npm test --prefix sampler
 
-  deploy:
+  integration:
     needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+ 
+      - name: Build all services
+        run: docker compose build
+ 
+      - name: Start all services
+        run: docker compose up -d
+ 
+      - name: Wait for API to be ready
+        run: sleep 15
+ 
+      - name: Test API stores temperature
+        run: |
+          curl -sk -X POST https://localhost:8443/temperature \
+            -H "Content-Type: application/json" \
+            -d '{"temperature": 24.5, "timestamp": 1775889310.6431897}'
+ 
+      - name: Tear down
+        if: always()
+        run: docker compose down -v
+
+  deploy:
+    needs: integration
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     environment: production

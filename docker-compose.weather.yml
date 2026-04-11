@@ -23,17 +23,61 @@ services:
   sampler:
     build: ./sampler
     ports: ["3000:3000"]
+    environment:
+      SAMPLE_RATE: 60
     depends_on: [sensor-1, sensor-2, sensor-3]
     networks:
       - sensor-net
+
   transformer:
     build:
       context: ./transformer
     ports: ["4000:4000"]
     networks:
       - sensor-net
-    depends_on: [sampler]
+    depends_on:
+      - sampler
+      - api
+
+  api:
+    build:
+      context: ./api
+    ports:
+      - "7000:6000"
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: temperatures_db
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: on-failure
+    networks:
+      - sensor-net
+ 
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: temperatures_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5500:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - sensor-net
 
 networks:
   sensor-net:
     name: sensor-net
+
+volumes:
+  postgres_data:

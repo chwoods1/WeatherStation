@@ -1,47 +1,32 @@
 # Weather Station
+Built as a part of Michigan Tech's Software architecture class.
 
-# Sampler
+Simulates a weather station pipeline including reading from sensors to saving the data to a database using an API. 
 
-Our sampler takes the data from our sensors and make sure that it is formatted in the correct way. It will look at the data being received from the
-sensor and check to see if it is JSON formatted and see if it is taking the voltage and the timestamp. Then it will send our data to the transformer.
+Since this project is split into multiple parts, individual documentation pages describing each part of the pipeline can be found below:
 
-### GET /read
-Endpoint located from each sensor\
-**Parameters**
+# Tech Stack
+- **Python**
+  - Flask
+  - Django
+  - Pytest
+- **Node.js**
+  - Express
+  - Jest
+- **Docker**
+  - Docker Compose
+  - Docker Networks
+- **Github Actions**
+  - Tailscale
 
-|          Name | Required |  Type   | Description                                                                                                                                                           |
-| -------------:|:--------:|:-------:| --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|     `timestamp` | required | Unix Timestamp  | The timestamp when value was read.                                                                     |
-|        `voltage` | required | double  | The value of voltage outputted by sensor.
+# Components
+[Sensor](docs/sensor.md) (Python, Flask)
 
-### GET /sample
-Endpoint located on the sampler service\
-**Parameters**
+[Sampler](docs/sampler.md) (Node.js, Express)
 
-|          Name | Required |  Type   | Description                                                                                                                                                           |
-| -------------:|:--------:|:-------:| --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|     `timestamp` | required | Unix Timestamp  | The timestamp when value was read.                                                                  |
-|        `voltage` | required | double  | The value of voltage outputted by sensor.
+[Transformer](docs/transformer.md) (Python, Flask)
 
---- 
-
-For integrating our Hot Spare for our Availability QA, we decided to run multiple sensor containers using Docker. If a sensor returns a faulty reading, it will move onto the next sensor and reset the faulty sensor. For Integrability we use a wrapper which is implied by data only being able reach the next or previous service when handling data, these services format the input into an accepted output so all services can use their expected data. For running tests, they are triggered when we commit or use github actions to trigger the CI/CD pipeline. 
-
-# Testing
-
-To test our sampler, we use sampler.test.js to run different readings to make sure the system is returning false or true on the reading validation.
-
-We test for bad voltage, bad timestamps, as well as if there is any missing data
-Example:
-
-```js
-const badVoltage = { voltage: 99, timestamp: 1741234567.123 };
-test('returns false for invalid voltage', () =>
-    expect(isValidReading(badVoltage)).toBe(false));
-```
-
-We run these tests for all values to make sure our code is working correctly before deploying to the server.
-
+[API](docs/api.md) (Python, Django)
 # Deployment
 
 We are using a server provided by one of our groupmates to deploy the server, this allows for testing using a real docker environment. For each service we are designing, we are making sure to implement a Dockerfile and a running Docker Compose file to allow for simple deployment. Using Docker networks allow us to have the sampler communicate with each sensor without having multiple ports exposed. 
@@ -80,3 +65,14 @@ To see currently running docker containers, run:
 docker ps
 ```
 This will show all currently running containers and their names.
+
+---
+
+## Contributors
+
+Built with a team during Michigan Tech's Software Architecture class.
+
+- Chase Woods - [Github](https://github.com/chwoods1)
+- Travis Haines - [Github](https://github.com/Thaines22)
+- Samuel McKeown - [Github](https://github.com/Swaguffin)
+- Tommy McQuiston - [Github](https://github.com/tlmcquis)

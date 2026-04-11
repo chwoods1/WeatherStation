@@ -1,5 +1,6 @@
 import os, time, math
 from flask import Flask, jsonify, request
+import requests
 
 # Set up our flask service
 app = Flask(__name__)
@@ -18,6 +19,14 @@ def transform():
     if voltage is None:
         return jsonify({'error': 'Voltage value is required'}), 400
     temperature = transform_data(voltage)
+    
+    store_resp = requests.post(
+        f"https://api:6000/temperature",
+        json={"temperature": temperature, "timestamp": timestamp},
+        verify=False
+    )
+    store_resp.raise_for_status()
+    
     return jsonify({'temperature': temperature, 'timestamp': timestamp}), 200
     
 
