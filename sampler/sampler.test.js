@@ -1,4 +1,4 @@
-const { isValidReading } = require('./sampler');
+const { isValidReading, sampleInterval } = require('./sampler');
 
 
 // Set up our valid/invalid readings
@@ -19,3 +19,7 @@ test('returns false for bad timestamp', () =>
 
 test('returns false for missing voltage', () =>
     expect(isValidReading(missingVoltage)).toBe(false));
+
+afterAll(() => {
+  clearInterval(sampleInterval);
+});

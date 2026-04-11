@@ -110,4 +110,4 @@ if (require.main === module) {
 }
 
 // Export our isValidReading function for use in testing
-module.exports = { isValidReading };
+module.exports = { isValidReading, sampleInterval };
