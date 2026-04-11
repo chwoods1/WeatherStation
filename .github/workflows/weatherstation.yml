@@ -48,7 +48,7 @@ jobs:
  
       - name: Test API stores temperature
         run: |
-          curl -sk -X POST https://localhost:6000/temperature \
+          curl -sk -X POST https://localhost:7000/temperature \
             -H "Content-Type: application/json" \
             -d '{"temperature": 24.5, "timestamp": 1775889310.6431897}'
  
