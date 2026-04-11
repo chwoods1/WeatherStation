@@ -27,6 +27,8 @@ Since this project is split into multiple parts, individual documentation pages 
 [Transformer](docs/transformer.md) (Python, Flask)
 
 [API](docs/api.md) (Python, Django)
+
+
 # Deployment
 
 We are using a server provided by one of our groupmates to deploy the server, this allows for testing using a real docker environment. For each service we are designing, we are making sure to implement a Dockerfile and a running Docker Compose file to allow for simple deployment. Using Docker networks allow us to have the sampler communicate with each sensor without having multiple ports exposed. 
