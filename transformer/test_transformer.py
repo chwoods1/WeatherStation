@@ -1,5 +1,6 @@
 import pytest
 import json
+from unittest.mock import patch, MagicMock
 from transformer import app, transform_data
 
 @pytest.fixture
@@ -21,10 +22,15 @@ def test_rounding():
     assert transform_data(0.555) == 1.1
 
 def test_valid_post(client):
-    res = client.post('/transform',
-        data=json.dumps({'voltage': 1.0, 'timestamp': 1234567890.0}),
-        content_type='application/json'
-    )
+    mock_response = MagicMock()
+    mock_response.status_code = 201
+
+    with patch('transformer.requests.post', return_value=mock_response):
+        res = client.post('/transform',
+            data=json.dumps({'voltage': 1.0, 'timestamp': 1234567890.0}),
+            content_type='application/json'
+        )
+
     assert res.status_code == 200
     assert res.get_json()['temperature'] == 10.0
 
