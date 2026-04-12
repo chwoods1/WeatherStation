@@ -26,7 +26,9 @@ Since this project is split into multiple parts, individual documentation pages 
 
 [Transformer](docs/transformer.md) (Python, Flask)
 
-[API](docs/api.md) (Python, Django)
+[API](docs/api.md) (Python, Flask)
+
+Database (Postgresql)
 
 
 # Deployment
